@@ -1,0 +1,49 @@
+class Solution {
+public:
+    bool areAlmostEqual(string s1, string s2) {
+        int len=s1.length();
+        int count=0;
+        int mismatch1;
+        int mismatch2;
+        
+
+
+        if(s1==s2)
+        {
+            return true;
+        }
+        for(int i=0;i<len;i++)
+        {
+            if(s1[i]!=s2[i] )
+            {
+                count++;
+                if(count==1)
+                {
+                    mismatch1=i;
+                }
+                else if(count==2)
+                {
+                    mismatch2=i;
+                }
+                else
+                {
+                    return false;
+                }
+
+            }
+        }
+
+        
+        
+        if(count==2 && s1[mismatch1]==s2[mismatch2] && s1[mismatch2]==s2[mismatch1])
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+
+        
+    }
+};

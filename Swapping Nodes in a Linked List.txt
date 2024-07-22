@@ -1,0 +1,64 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* swapNodes(ListNode* head, int k) {
+        if (!head) return nullptr;
+
+        int length = 0;
+        ListNode* curr = head;
+
+        // First pass to calculate the length of the list
+        while (curr != nullptr) {
+            curr = curr->next;
+            length++;
+        }
+
+        // Reset curr to head to find the k-th node from the beginning
+        curr = head;
+        ListNode* tempo1 = nullptr;
+        int count1 = 1;
+
+        // Find the k-th node from the beginning
+        while (curr != nullptr) {
+            if (count1 == k) {
+                tempo1 = curr;
+                
+            }
+            curr = curr->next;
+            count1++;
+        }
+
+        // Reset curr to head to find the k-th node from the end
+        curr = head;
+        ListNode* tempo2 = nullptr;
+        int count2 = 1;
+
+        // Find the k-th node from the end
+        while (curr != nullptr) {
+            if (count2 == length - k + 1) {
+                tempo2 = curr;
+            
+            }
+            curr = curr->next;
+            count2++;
+        }
+
+        // Swap the values of the two nodes
+        if (tempo1 && tempo2) {
+            int temp = tempo1->val;
+            tempo1->val = tempo2->val;
+            tempo2->val = temp;
+        }
+
+        return head;
+    }
+};

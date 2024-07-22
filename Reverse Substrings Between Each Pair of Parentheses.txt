@@ -1,0 +1,52 @@
+#include <algorithm> // Include the algorithm library for the reverse function
+#include <stack>     // Include stack library for using stack
+#include <string>    // Include string library for using string
+using namespace std;
+
+class Solution {
+public:
+    string reverseParentheses(string s) {
+        string ans;
+        int len = s.length();
+        stack<char> reverse;
+        for(int i = 0; i < len; i++)
+        {
+            if(s[i] == '(')
+            {
+                reverse.push(s[i]);
+            }
+            else if(s[i] == ')')
+            {
+                string temp = "";
+                while(reverse.top() != '(')
+                {
+                    temp += reverse.top();
+                    reverse.pop();
+                }
+                reverse.pop(); // remove the '('
+
+                // push characters from temp back into the stack
+                for(char c : temp)
+                {
+                    reverse.push(c);
+                }
+            }
+            else
+            {
+                reverse.push(s[i]);
+            }
+        }
+
+        // construct the final answer from the stack
+        while(!reverse.empty())
+        {
+            ans += reverse.top();
+            reverse.pop();
+        }
+
+        // Reverse the constructed answer string
+        std::reverse(ans.begin(), ans.end());
+
+        return ans;
+    }
+};

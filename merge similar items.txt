@@ -1,0 +1,29 @@
+#include <vector>
+#include <map>
+
+using namespace std;
+
+class Solution {
+public:
+    vector<vector<int>> mergeSimilarItems(vector<vector<int>>& items1, vector<vector<int>>& items2) {
+        map<int, int> itemMap;
+
+        // Process items1
+        for (const auto& item : items1) {
+            itemMap[item[0]] += item[1];  // Add the weight to the existing weight in the map
+        }
+
+        // Process items2
+        for (const auto& item : items2) {
+            itemMap[item[0]] += item[1];  // Add the weight to the existing weight in the map
+        }
+
+        // Convert the map to a result vector
+        vector<vector<int>> result;
+        for (const auto& item : itemMap) {
+            result.push_back({item.first, item.second});
+        }
+
+        return result;
+    }
+};

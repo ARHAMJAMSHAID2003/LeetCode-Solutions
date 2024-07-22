@@ -1,0 +1,54 @@
+#include <iostream>
+
+class Node {
+public:
+    int val;
+    Node* next;
+
+    Node(int x) : val(x), next(nullptr) {}
+};
+
+class Solution {
+public:
+    Node* head;
+
+    int findTheWinner(int n, int k) {
+        // Create the circular linked list with n nodes
+        head = new Node(1);
+        Node* curr = head;
+        for (int i = 2; i <= n; ++i) {
+            curr->next = new Node(i);
+            curr = curr->next;
+        }
+        curr->next = head;
+        
+        
+          // Make it circular
+
+        // Simulate the elimination process
+        Node* temp = head;
+        Node* tempo = curr; 
+
+        while (n > 1 ) {
+            // Move k-1 steps forward
+            while(k>1)
+                tempo = temp;
+                temp = temp->next;
+                k--;
+            }
+
+            // Remove the k-th node
+            
+            tempo->next = temp->next;
+             Node*curr=temp;
+              temp = temp->next;
+    
+        delete curr;
+
+            n--;  // Reduce the number of remaining friends
+        }
+
+        return temp->val;
+    }
+};
+

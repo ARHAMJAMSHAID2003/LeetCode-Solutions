@@ -1,0 +1,79 @@
+    
+    
+    
+    
+    class Node
+
+{
+    public:
+    string url;
+    Node*prev;
+    Node*next;
+    //Node(const std::string& url) : url(url), prev(nullptr), next(nullptr) {}
+
+
+};
+    
+    
+    
+    
+    class BrowserHistory {
+
+    private:
+    Node*current; 
+    public:
+
+    BrowserHistory(string homepage) {
+        current=new Node(homepage);
+        
+    
+    }
+    
+    void visit(string url) {
+        Node *newnode=new Node(url);
+        current->next=newnode;
+        newnode->prev=current;
+        current=newnode;
+
+
+
+
+
+
+        
+
+
+        
+    }
+    
+    string back(int steps) {
+        
+        while(current->prev!=nullptr && steps>0)
+        {
+            current=current->prev;
+            steps--;
+
+        }
+        return current->url;
+
+        
+    }
+    
+    string forward(int steps) {
+        while(current->next!=nullptr && steps>0)
+        {
+            current=current->next;
+            steps--;
+        }
+        return current->url;
+        
+    }
+};
+
+/**
+ * Your BrowserHistory object will be instantiated and called as such:
+ * BrowserHistory* obj = new BrowserHistory(homepage);
+ * obj->visit(url);
+ * string param_2 = obj->back(steps);
+ * string param_3 = obj->forward(steps);
+ */

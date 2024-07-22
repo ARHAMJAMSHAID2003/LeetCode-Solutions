@@ -1,0 +1,23 @@
+#include <string>
+#include <stack>
+
+using namespace std;
+
+class Solution {
+public:
+    int minLength(string s) {
+        stack<char> store;
+
+        for (char ch : s) {
+            if (!store.empty() && store.top() == 'A' && ch == 'B') {
+                store.pop(); // Remove 'A' from stack for "AB"
+            } else if (!store.empty() && store.top() == 'C' && ch == 'D') {
+                store.pop(); // Remove 'C' from stack for "CD"
+            } else {
+                store.push(ch); // Push current character onto stack
+            }
+        }
+
+        return store.size();
+    }
+};

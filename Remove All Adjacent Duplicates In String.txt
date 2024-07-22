@@ -1,0 +1,25 @@
+#include <stack>
+#include <string>
+
+class Solution {
+public:
+    string removeDuplicates(string s) {
+        stack<char> store;
+        
+        for (char c : s) {
+            if (!store.empty() && store.top() == c) {
+                store.pop(); // Remove the top element if it matches the current character
+            } else {
+                store.push(c); // Push the current character onto the stack
+            }
+        }
+        
+        string result;
+        while (!store.empty()) {
+            result = store.top() + result; // Append characters from the stack to result
+            store.pop();
+        }
+        
+        return result;
+    }
+};

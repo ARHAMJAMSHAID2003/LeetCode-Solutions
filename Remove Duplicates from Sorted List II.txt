@@ -1,0 +1,31 @@
+class Solution {
+public:
+    ListNode* deleteDuplicates(ListNode* head) {
+        if (head == nullptr || head->next == nullptr) {
+            return head;
+        }
+
+        ListNode* dummy = new ListNode(0);
+        dummy->next = head;
+        ListNode* prev = dummy;
+        ListNode* temp = head;
+        ListNode* forward = head->next;
+        while (temp!= nullptr && forward!= nullptr) {
+            if (temp->val == forward->val) {
+                while (forward!= nullptr && forward->val == temp->val) {
+                    forward = forward->next;
+                }
+                prev->next = forward;
+                temp = forward;
+                if (temp!= nullptr) {
+                    forward = forward->next; // Simply move forward to the next node
+                }
+            } else {
+                prev = prev->next;
+                temp = temp->next;
+                forward = forward->next;
+            }
+        }
+        return dummy->next;
+    }
+};
