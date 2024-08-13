@@ -1,0 +1,19 @@
+
+
+class Solution {
+public:
+    ListNode *detectCycle(ListNode *head) {
+        std::map<ListNode*, bool> visited; // Map to store visited nodes
+        ListNode* curr = head;
+
+        while (curr != nullptr) {
+            if (visited[curr]) { // If the node is already visited, a cycle is detected
+                return curr; // Return the node where the cycle begins
+            }
+            visited[curr] = true; // Mark the current node as visited
+            curr = curr->next; // Move to the next node
+        }
+
+        return nullptr; // If no cycle is detected, return nullptr
+    }
+};
