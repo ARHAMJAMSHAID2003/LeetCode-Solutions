@@ -1,0 +1,87 @@
+#include <iostream>
+
+class MyCircularQueue {
+private:
+    int front;
+    int rear;
+    int *array;
+    int capacity;
+    int size;
+
+public:
+    MyCircularQueue(int k) : capacity(k), front(-1), rear(-1), size(0) {
+        array = new int[k];
+    }
+
+    bool enQueue(int value) {
+        if (isFull()) {
+            return false;  // Queue is full, cannot enqueue
+        }
+
+        if (isEmpty()) {
+            front = rear = 0;  // First element to be enqueued
+        } else if (rear == capacity - 1 && front != 0) {
+            rear = 0;  // Wrap around
+        } else {
+            rear++;
+        }
+
+        array[rear] = value;
+        size++;
+        return true;
+    }
+
+    bool deQueue() {
+        if (isEmpty()) {
+            return false;  // Queue is empty, cannot dequeue
+        }
+
+        if (front == rear) {  // Queue will be empty after this dequeue
+            front = rear = -1;  // Reset queue
+        } else if (front == capacity - 1) {
+            front = 0;  // Wrap around
+        } else {
+            front++;
+        }
+
+        size--;
+        return true;
+    }
+
+    int Front() {
+        if (isEmpty()) {
+            return -1;  // Queue is empty
+        }
+        return array[front];
+    }
+
+    int Rear() {
+        if (isEmpty()) {
+            return -1;  // Queue is empty
+        }
+        return array[rear];
+    }
+
+    bool isEmpty() {
+        return size == 0;
+    }
+
+    bool isFull() {
+        return size == capacity;
+    }
+
+    ~MyCircularQueue() {
+        delete[] array;
+    }
+};
+
+/**
+ * Your MyCircularQueue object will be instantiated and called as such:
+ * MyCircularQueue* obj = new MyCircularQueue(k);
+ * bool param_1 = obj->enQueue(value);
+ * bool param_2 = obj->deQueue();
+ * int param_3 = obj->Front();
+ * int param_4 = obj->Rear();
+ * bool param_5 = obj->isEmpty();
+ * bool param_6 = obj->isFull();
+ */
