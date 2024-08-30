@@ -1,0 +1,25 @@
+class Solution {
+public:
+    ListNode* modifiedList(vector<int>& nums, ListNode* head) {
+        ListNode* dummy = new ListNode(0);
+        dummy->next = head;
+        ListNode* current = dummy;
+
+        unordered_set<int> numSet(nums.begin(), nums.end());
+
+        while (current->next != nullptr) {
+            ListNode* forward = current->next;
+            if (numSet.find(forward->val) != numSet.end()) {
+                ListNode* temp = forward;
+                current->next = forward->next;
+                delete temp;
+            } else {
+                current = forward;
+            }
+        }
+
+        ListNode* result = dummy->next;
+        delete dummy;
+        return result;
+    }
+};
