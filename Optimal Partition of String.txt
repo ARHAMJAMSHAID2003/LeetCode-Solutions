@@ -1,0 +1,22 @@
+#include <iostream>
+#include <set>
+#include <string>
+#include <algorithm> // for std::all_of and std::count
+
+class Solution {
+public:
+    int countUniqueSubstrings(const std::string& s) {
+        std::set<std::string> uniqueSubstrings;
+        for (int i = 0; i < s.length(); ++i) {
+            for (int j = i + 1; j <= s.length(); ++j) {
+                std::string substr = s.substr(i, j - i);
+                if (std::all_of(substr.begin(), substr.end(), [&substr](char c) {
+                    return std::count(substr.begin(), substr.end(), c) == 1;
+                })) {
+                    uniqueSubstrings.insert(substr);
+                }
+            }
+        }
+        return uniqueSubstrings.size();
+    }
+};
