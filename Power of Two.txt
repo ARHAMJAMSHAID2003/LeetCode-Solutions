@@ -1,0 +1,21 @@
+#include <cmath>  // For pow()
+
+class Solution {
+public:
+    bool isPowerOfTwo(int n) {
+        return recursive(n);  // Call recursive with the value of 'n'
+    }
+
+    bool recursive(int n) {
+        if (n <= 0) {
+            return false;  // Negative numbers and 0 are not powers of two
+        }
+        
+        for (int i = 0; i < 31; i++) {  // 31 because 2^30 is the largest power of 2 within int limits
+            if (pow(2, i) == n) {  // Use pow() to compute powers of 2
+                return true;
+            }
+        }
+        return false;
+    }
+};
