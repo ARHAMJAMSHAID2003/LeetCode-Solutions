@@ -1,0 +1,43 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+class Solution {
+public:
+    double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {
+        vector<int> store;
+        int j = 0, k = 0;
+        int m = nums1.size(), n = nums2.size();
+
+        // Merge both arrays into store (like merge step in merge sort)
+        while (j < m && k < n) {
+            if (nums1[j] < nums2[k]) {
+                store.push_back(nums1[j]);
+                j++;
+            } else {
+                store.push_back(nums2[k]);
+                k++;
+            }
+        }
+
+        // Add remaining elements
+        while (j < m) {
+            store.push_back(nums1[j]);
+            j++;
+        }
+        while (k < n) {
+            store.push_back(nums2[k]);
+            k++;
+        }
+
+        // Find median
+        int size = store.size();
+        if (size % 2 == 0) {
+            return (store[size/2 - 1] + store[size/2]) / 2.0;
+        } else {
+            return store[size/2];
+        }
+    }
+};
+
