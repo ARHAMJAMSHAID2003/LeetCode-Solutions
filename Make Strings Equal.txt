@@ -1,0 +1,35 @@
+class Solution {
+public:
+    bool makeEqual(vector<string>& words) {
+
+        unordered_map<char,int> store;
+
+        // count frequency of every char
+        for (string s : words) {
+            for (char c : s) {
+                store[c]++;
+            }
+        }
+
+        int count = words.size();   // number of words
+        int sum = 0;
+
+        for (auto j : store) {
+            sum = sum + j.second;   // total number of characters
+        }
+
+        // ✅ first check total sum
+        if (sum % count != 0) {
+            return false;
+        }
+
+        // ✅ then make sure no single char breaks the rule
+        for (auto j : store) {
+            if (j.second % count != 0) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+};
