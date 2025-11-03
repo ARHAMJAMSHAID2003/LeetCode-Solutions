@@ -1,0 +1,36 @@
+class Solution {
+public:
+    bool makeEqual(vector<string>& words) {
+
+         
+         
+
+       
+
+
+        unordered_map<char,int>letterscount;
+        for(int i=0;i<words.size();i++)
+        {
+            for(int j=0;j<words[i].size();j++)
+            {
+                letterscount[words[i][j]]++;
+            }
+
+
+        }
+        
+        for(auto iter : letterscount)
+        {
+            
+           if(iter.second % words.size() != 0)  
+    return false;  
+    
+        }
+        return true;
+       
+        
+    }
+
+
+    
+};
