@@ -1,0 +1,35 @@
+class Solution {
+public:
+    TreeNode* getTargetCopy(TreeNode* original, TreeNode* cloned, TreeNode* target) {
+
+        if(original == nullptr) return nullptr;
+
+        vector<TreeNode*> original_nodes;  
+        vector<TreeNode*> cloned_nodes;    
+
+        queue<pair<TreeNode*, TreeNode*>> q;  
+        q.push({original, cloned});
+
+        while(!q.empty())
+        {
+            auto p = q.front();  
+            q.pop();
+
+            TreeNode* curr1 = p.first;
+            TreeNode* curr2 = p.second;
+
+            original_nodes.push_back(curr1);
+            cloned_nodes.push_back(curr2);
+
+            if(curr1 == target)
+                return curr2;
+
+            if(curr1->left != nullptr)
+                q.push({curr1->left, curr2->left});
+            if(curr1->right != nullptr)
+                q.push({curr1->right, curr2->right});
+        }
+
+        return nullptr;
+    }
+};
