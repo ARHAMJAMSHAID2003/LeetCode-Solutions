@@ -1,0 +1,48 @@
+class Solution {
+public:
+    int furthestDistanceFromOrigin(string moves) {
+
+        int leftcount=0;
+        int rightcount=0;
+        int blank=0;
+        for(char c: moves)
+        {
+            if(c=='L')
+            {
+                leftcount=leftcount+1;
+            }
+            else if(c=='R')
+            {
+                rightcount=rightcount+1;
+            }
+
+
+        }
+
+        int maxcount=max(leftcount,rightcount);
+        int mincount=min(leftcount,rightcount);
+        
+
+
+
+        for(char a: moves)
+        {
+            if(a=='_')
+            {
+                blank=blank+1;
+            }
+
+
+
+        }
+
+        return (maxcount-mincount)+blank;
+
+
+
+        
+
+
+        
+    }
+};
