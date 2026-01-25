@@ -1,0 +1,58 @@
+class Solution {
+public:
+    bool canBeEqual(string s1, string s2) {
+
+        
+        if (s1 == s2) return true;
+
+
+        swap(s1[1], s1[3]);
+        if (s1 == s2) return true;
+
+      
+
+
+        int iterations=24;
+        int i=0;
+        int j=0;
+        int k=2;
+
+    
+        
+
+        while(i<iterations)
+
+        { 
+
+
+            swap(s1[j],s1[k]);
+
+            if(j==1 and k==3)
+            {
+                j=0;
+                k=2;
+            }
+
+            j++;
+            k++;
+            i++;
+
+            if(s1==s2)
+            {
+                break;
+            }
+        }
+
+        return s1==s2;
+
+
+
+
+
+
+
+        
+        
+
+    }
+};
