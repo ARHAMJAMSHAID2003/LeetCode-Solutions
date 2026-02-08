@@ -1,0 +1,58 @@
+class Solution {
+public:
+    struct Result {
+        int number;
+        int count;
+    };
+    
+    Result divide(vector<int>& nums, int low, int high) {
+        // Base case: single element
+        if (low == high) {
+            return {nums[low], 1};
+        }
+        
+        // Divide
+        int mid = (low + high) / 2;
+        Result leftResult = divide(nums, low, mid);
+        Result rightResult = divide(nums, mid + 1, high);
+        
+        // Conquer/Merge
+        if (leftResult.number == rightResult.number) {
+            // Both halves have same candidate
+            int actualCount = 0;
+            for (int i = low; i <= high; i++) {
+                if (nums[i] == leftResult.number) {
+                    actualCount++;
+                }
+            }
+            return {leftResult.number, actualCount};
+        }
+        else {
+            // Different candidates - count both in current range
+            int count1 = 0;
+            int count2 = 0;
+            
+            for (int i = low; i <= high; i++) {
+                if (nums[i] == leftResult.number) {
+                    count1++;
+                }
+                if (nums[i] == rightResult.number) {
+                    count2++;
+                }
+            }
+            
+            // Return the one with higher count
+            if (count1 > count2) {
+                return {leftResult.number, count1};
+            }
+            else {
+                return {rightResult.number, count2};
+            }
+        }
+    }
+    
+    int majorityElement(vector<int>& nums) {
+        Result result = divide(nums, 0, nums.size() - 1);
+        return result.number;
+    }
+};
