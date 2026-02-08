@@ -1,0 +1,60 @@
+class Solution {
+public:
+    string longestNiceSubstring(string s) {
+        return divideAndConquer(s, 0, s.length() - 1);
+    }
+    
+private:
+    string divideAndConquer(string& s, int low, int high) {
+        // Base case: substring too small to be nice
+        if (low >= high) {
+            return "";
+        }
+        
+        // Check if current substring is nice
+        if (isNice(s, low, high)) {
+            return s.substr(low, high - low + 1);
+        }
+        
+        // Divide: split into left and right halves
+        int mid = (low + high) / 2;
+        
+        string leftResult = divideAndConquer(s, low, mid);
+        string rightResult = divideAndConquer(s, mid + 1, high);
+        
+        // Conquer: return the longest nice substring
+        if (leftResult.length() >= rightResult.length()) {
+            return leftResult;
+        } else {
+            return rightResult;
+        }
+    }
+    
+    // Helper function to check if a substring is nice
+    bool isNice(string& s, int low, int high) {
+        // Track which characters (lowercase) appear in substring
+        set<char> chars;
+        
+        for (int i = low; i <= high; i++) {
+            chars.insert(s[i]);
+        }
+        
+        // Check if every character has both upper and lower case
+        for (char c : chars) {
+            // If it's lowercase, check if uppercase exists
+            if (islower(c)) {
+                if (chars.find(toupper(c)) == chars.end()) {
+                    return false;
+                }
+            }
+            // If it's uppercase, check if lowercase exists
+            else {
+                if (chars.find(tolower(c)) == chars.end()) {
+                    return false;
+                }
+            }
+        }
+        
+        return true;
+    }
+};
