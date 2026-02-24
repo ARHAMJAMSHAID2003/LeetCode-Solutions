@@ -1,0 +1,39 @@
+class Solution(object):
+    def lengthOfLongestSubstring(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        store=[]
+
+
+        
+        
+
+        for i in range (0,len(s)):
+            concat=s[i]
+
+            for j in range (i+1,len(s)):
+                
+
+                if s[j] in concat:
+                  
+                    store.append(concat)
+                    break
+
+                else:
+                     concat=concat+s[j]
+            store.append(concat)
+
+
+        max_length=0
+
+        for words in store:
+
+            if len(words)>max_length:
+                max_length=len(words)
+
+
+        return max_length     
+
+        
