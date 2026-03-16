@@ -1,0 +1,18 @@
+class Solution(object):
+    def maxFrequencyElements(self, nums):
+        store = {}
+
+        # count frequencies
+        for x in nums:
+            store[x] = store.get(x, 0) + 1
+
+        maxfreq = max(store.values())
+
+        total = 0
+
+        # sum frequencies equal to max
+        for value in store.values():
+            if value == maxfreq:
+                total += value
+
+        return total
