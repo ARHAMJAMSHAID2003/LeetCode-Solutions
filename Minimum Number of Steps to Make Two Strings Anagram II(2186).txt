@@ -1,0 +1,56 @@
+class Solution {
+public:
+    int minSteps(string s, string t) {
+
+        map<char,int> store1;
+        map<char,int> store2;
+        set<char> st; // store characters already processed
+
+        // Count characters in s
+        for(int i = 0; i < s.length(); i++)
+            store1[s[i]]++;
+
+        // Count characters in t
+        for(int i = 0; i < t.length(); i++)
+            store2[t[i]]++;
+
+        int count = 0;
+
+        // Compare store1 with store2
+        for(auto c : store1)
+        {
+            if(store2[c.first]) // character exists in t
+            {
+                if(c.second != store2[c.first])
+                {
+                    count += abs(c.second - store2[c.first]);
+                    st.insert(c.first);
+                }
+            }
+            else // character does NOT exist in t
+            {
+                count += c.second;
+                st.insert(c.first);
+            }
+        }
+
+        // Compare store2 with store1, only process characters not in st
+        for(auto c : store2)
+        {
+            if(st.find(c.first) != st.end()) 
+                continue; // already counted in first loop
+
+            if(store1[c.first]) // character exists in s
+            {
+                if(c.second != store1[c.first])
+                    count += abs(c.second - store1[c.first]);
+            }
+            else // character does NOT exist in s
+            {
+                count += c.second;
+            }
+        }
+
+        return count;
+    }
+};
