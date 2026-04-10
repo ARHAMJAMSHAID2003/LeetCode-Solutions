@@ -1,0 +1,28 @@
+import heapq
+
+class Solution(object):
+    def maxSubsequence(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: List[int]
+        """
+
+        maxheap = []
+        vec1 = []
+        vec2 = []
+
+        for i in range(0, len(nums)):
+            heapq.heappush(maxheap, -nums[i])
+
+        while k is not 0:
+            maxval = -heapq.heappop(maxheap)
+            k = k - 1
+            vec1.append(maxval)
+
+        for i in range(0, len(nums)):
+            if nums[i] in vec1:
+                vec2.append(nums[i])
+                vec1.remove(nums[i])
+
+        return vec2
