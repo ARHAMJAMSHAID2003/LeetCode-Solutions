@@ -1,0 +1,26 @@
+import heapq
+
+class Solution(object):
+    def halveArray(self, nums):
+        sumarray = sum(nums)
+
+        maxheap = []
+        for i in range(len(nums)):
+            heapq.heappush(maxheap, -nums[i])
+
+        minops = 0
+        tempsum = sumarray
+        target = sumarray / 2.0
+
+        while True:
+            maxval = -heapq.heappop(maxheap)
+            half = maxval / 2.0
+
+            tempsum -= half
+            minops += 1
+
+            if tempsum <= target:
+                break
+            heapq.heappush(maxheap, -half)
+
+        return minops
