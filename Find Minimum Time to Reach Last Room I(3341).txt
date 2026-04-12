@@ -1,0 +1,37 @@
+import heapq
+
+class Solution(object):
+    def minTimeToReach(self, moveTime):
+        n = len(moveTime)
+        m = len(moveTime[0])
+
+        # (time, i, j, parity)
+        heap = [(0, 0, 0, 0)]
+
+        dist = [[float('inf')] * m for _ in range(n)]
+        dist[0][0] = 0
+
+        while heap:
+            time, i, j, parity = heapq.heappop(heap)
+
+            if time > dist[i][j]:
+                continue
+
+            if i == n - 1 and j == m - 1:
+                return time
+
+            # movement cost alternates
+            cost = 1 if parity == 0 else 2
+
+            for di, dj in [(-1,0),(1,0),(0,-1),(0,1)]:
+                ni = i + di
+                nj = j + dj
+
+                if 0 <= ni < n and 0 <= nj < m:
+
+                    arrive = time + cost
+                    arrive = max(arrive, moveTime[ni][nj])
+
+                    if arrive < dist[ni][nj]:
+                        dist[ni][nj] = arrive
+                        heapq.heappush(heap, (arrive, ni, nj, 1 - parity))
